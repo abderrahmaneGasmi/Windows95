@@ -1,0 +1,67 @@
+.startbar {
+  display: flex;
+  justify-content: space-between;
+  // height: 60px;
+  background-color: #c3c3c3;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 0.1rem;
+  gap: 0.5rem;
+  &__start {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #000000;
+    border-right: 2px solid #000000;
+    border-left: 2px solid #fff;
+    gap: 0.4rem;
+    cursor: pointer;
+    &__logo {
+      height: 2rem;
+      // height: 4rem;
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    &__text {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+  &__tabs {
+    display: flex;
+    flex-grow: 2;
+    padding: 0.2rem 0;
+    gap: 0.5rem;
+    text-align: left;
+    &__tab {
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-top: 2px solid #1c1c1c;
+      border-left: 2px solid #1c1c1c;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      padding: 0.3rem 0.2rem;
+      background-color: #eee;
+      min-width: 13rem;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(0.95);
+      }
+    }
+  }
+  &__time {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #000000;
+    border-right: 2px solid #fff;
+    border-left: 2px solid #000000;
+    gap: 0.4rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
