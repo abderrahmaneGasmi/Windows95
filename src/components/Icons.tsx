@@ -173,7 +173,7 @@ function IconItem({
       }}
     >
       <div className="icon__logo">
-        <img src={image} alt={name} />
+        <img src={image} alt={name} className="icon__image" />
       </div>
       <div
         className="icon__text"

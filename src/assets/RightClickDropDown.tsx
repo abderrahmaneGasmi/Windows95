@@ -5,10 +5,12 @@ export default function RightClickDropDown({
   children,
   top,
   left,
+  direction = "bottom",
 }: {
   children: React.ReactNode;
   top?: number;
   left?: number;
+  direction?: "top" | "bottom";
 }) {
   return (
     <motion.div
@@ -21,6 +23,8 @@ export default function RightClickDropDown({
       }}
       style={{
         transform: `translate(${left || 0}px, ${top || 0}px)`,
+        top: direction !== "top" ? "unset" : "0",
+        bottom: direction !== "bottom" ? "unset" : "0",
       }}
       transition={{
         duration: 0.5,

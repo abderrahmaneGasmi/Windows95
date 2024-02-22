@@ -69,6 +69,7 @@ export default function Startbar() {
       }
     };
     const rightclickhandle = (event: MouseEvent) => {
+      document.body.click();
       // check if target class start with rightclickdropdown than return
       if (
         (event.target as HTMLElement).className.startsWith("rightclickdropdown")
