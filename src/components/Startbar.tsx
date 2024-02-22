@@ -1,17 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "../styles/components/start.scss";
 import RangeInput from "../assets/RangeInput";
+import RightClickDropDown, {
+  RightClickDropDownItem,
+  RightClickDropDownSeparator,
+} from "../assets/RightClickDropDown";
 export default function Startbar() {
   const [tabs, setTabs] = useState<Array<string>>([
     "File Explorer",
     "Microsoft Edge",
     "Windows Media Player",
   ]);
+  const [time, settime] = useState(
+    new Date().toLocaleTimeString().split(" ")[0]
+  );
   const [showSoundControlls, setShowSoundControlls] = useState(false);
   const [showStartPopup, setShowStartPopup] = useState(false);
+  const [showDropDownRightClick, setShowDropDownRightClick] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+  });
+
+  const startbarref = React.createRef<HTMLDivElement>();
   useEffect(() => {
     const handleclickoutside = (e: MouseEvent) => {
       // close sound popup
+      if (!(e.target as HTMLElement).closest(".startbar")) {
+        setShowDropDownRightClick({
+          show: false,
+          x: 0,
+          y: 0,
+        });
+      }
       if (
         (e.target as HTMLElement).className.startsWith(
           "startbar__time__popup"
@@ -47,21 +68,68 @@ export default function Startbar() {
         setShowSoundControlls(false);
       }
     };
+    const rightclickhandle = (event: MouseEvent) => {
+      // check if target class start with rightclickdropdown than return
+      if (
+        (event.target as HTMLElement).className.startsWith("rightclickdropdown")
+      ) {
+        event.preventDefault();
+        // trigger a click event on target
+        (event.target as HTMLElement).click();
+        return;
+      }
+
+      event.preventDefault();
+      // get the mouse position and set the dropdown to that position based on the .icon element position
+
+      let x = event.clientX;
+      let y = -20;
+      const rect = startbarref.current?.getBoundingClientRect();
+      const left = rect?.left;
+      const top = rect?.top;
+      if (left && top) {
+        x = x - left - 5;
+        y = top;
+      }
+
+      setShowDropDownRightClick({
+        show: true,
+        x,
+        y,
+      });
+    };
+    if (startbarref.current)
+      startbarref.current.addEventListener("contextmenu", rightclickhandle);
     window.addEventListener("click", handleclickoutside);
+
+    const interval = setInterval(() => {
+      settime(new Date().toLocaleTimeString().split(" ")[0]);
+    }, 1000);
+
     return () => {
+      if (startbarref.current)
+        startbarref.current.removeEventListener(
+          "contextmenu",
+          rightclickhandle
+        );
       window.removeEventListener("click", handleclickoutside);
+      clearInterval(interval);
     };
   }, []);
   return (
-    <div className="startbar">
+    <div className="startbar" ref={startbarref}>
       <div
-        className="startbar__start"
+        className="startbar__start clickablelink"
         onClick={() => {
           setShowStartPopup(!showStartPopup);
         }}
       >
         <div className="startbar__start__logo">
-          <img src="/start.png" alt="windows logo" />
+          <img
+            src="/start.png"
+            alt="windows logo"
+            className="startbar__start__logo__image"
+          />
         </div>
         <div className="startbar__start__text">Start</div>
       </div>
@@ -85,7 +153,7 @@ export default function Startbar() {
             className="startbar__time__sound__icon"
           />
         </div>{" "}
-        2:00 PM
+        {time}
         {showSoundControlls && (
           <div className="startbar__time__popup">
             <div className="startbar__time__popup__title">Volume</div>
@@ -240,6 +308,52 @@ export default function Startbar() {
             </div>
           </div>
         </div>
+      )}
+      {showDropDownRightClick.show && (
+        <RightClickDropDown
+          top={showDropDownRightClick.y}
+          left={showDropDownRightClick.x}
+        >
+          <RightClickDropDownItem onClick={() => alert("Open")} disabled={true}>
+            Open
+          </RightClickDropDownItem>
+          <RightClickDropDownItem
+            onClick={() => alert("Explore")}
+            disabled={true}
+          >
+            Explore
+          </RightClickDropDownItem>
+
+          <RightClickDropDownSeparator />
+          <RightClickDropDownItem
+            onClick={() => alert("Short")}
+            disabled={true}
+          >
+            Create Shortcut
+          </RightClickDropDownItem>
+          <RightClickDropDownItem
+            onClick={() => alert("Rename")}
+            disabled={true}
+          >
+            Rename
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Cut")} disabled={true}>
+            Cut
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Copy")} disabled={true}>
+            Copy
+          </RightClickDropDownItem>
+          <RightClickDropDownItem
+            onClick={() => alert("Delete")}
+            disabled={true}
+          >
+            Delete
+          </RightClickDropDownItem>
+          <RightClickDropDownSeparator />
+          <RightClickDropDownItem onClick={() => alert("Delete")}>
+            Properties
+          </RightClickDropDownItem>
+        </RightClickDropDown>
       )}
     </div>
   );

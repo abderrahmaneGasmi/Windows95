@@ -40,6 +40,7 @@ export default function Icons() {
     x: 0,
     y: 0,
   });
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -70,6 +71,7 @@ export default function Icons() {
         setShowdropdown({ show: false, x: 0, y: 0 });
       }
     };
+
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("click", handleclickoutside);
     return () => {
@@ -161,7 +163,7 @@ function IconItem({
 
   return (
     <div
-      className="icon"
+      className="icon clickablelink"
       ref={refr}
       onClick={() => {
         setSelected(name);

@@ -33,12 +33,22 @@ export default function RightClickDropDown({
 export function RightClickDropDownItem({
   children,
   onClick,
+  disabled,
 }: {
   children: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
 }) {
   return (
-    <div className="rightclickdropdown__item" onClick={onClick}>
+    <div
+      className={`rightclickdropdown__item ${disabled ? " disabled" : ""}`}
+      onClick={() => {
+        if (disabled) {
+          return;
+        }
+        onClick();
+      }}
+    >
       {children}
     </div>
   );
