@@ -1,0 +1,29 @@
+.rightclickdropdown {
+  position: absolute;
+  z-index: 1000;
+  background-color: #ccc;
+  box-shadow: inset -1.5px -1.5px 0 0 #263238, inset 1.5px 1.5px 0 0 #fcfcfc,
+    inset -3px -3px 0 0 #a099a1, inset 3px 3px 0 0 #cac6cb;
+  margin: 2px 0 0 0;
+  cursor: pointer;
+  bottom: 0;
+  left: 1rem;
+  overflow: hidden;
+  text-align: left;
+  padding: 0.2rem;
+  &__item {
+    display: block;
+    color: #000;
+    font-size: 1.5rem;
+    padding: 0.5rem 4rem;
+    white-space: nowrap;
+    &:hover {
+      background-color: #bebebe;
+    }
+  }
+  &__separator {
+    width: 100%;
+    height: 2px;
+    box-shadow: inset -1.5px -1.5px 0 0 #626262, inset 1.5px 1.5px 0 0 #fcfcfc;
+  }
+}

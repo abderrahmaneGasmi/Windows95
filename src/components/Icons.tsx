@@ -1,32 +1,45 @@
 import React, { useEffect, useState } from "react";
 import "../styles/components/icons.scss";
+import RightClickDropDown, {
+  RightClickDropDownItem,
+  RightClickDropDownSeparator,
+} from "../assets/RightClickDropDown";
 const icons = [
   {
     image: "/folder.png",
     name: "Documents",
+    ref: React.createRef<HTMLDivElement>(),
   },
   {
     image: "/pc.png",
     name: "This PC",
+    ref: React.createRef<HTMLDivElement>(),
   },
   {
     image: "/networks.png",
     name: "Networks",
+    ref: React.createRef<HTMLDivElement>(),
   },
   {
     image: "/recycle.png",
     name: "Recycle Bin",
+    ref: React.createRef<HTMLDivElement>(),
   },
 
   {
     image: "/wrong.png",
     name: "program.exe",
+    ref: React.createRef<HTMLDivElement>(),
   },
 ];
 
 export default function Icons() {
   const [selected, setSelected] = useState("");
-
+  const [showdropdown, setShowdropdown] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+  });
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -54,6 +67,7 @@ export default function Icons() {
     const handleclickoutside = (e: MouseEvent) => {
       if (!(e.target as HTMLElement).closest(".icon")) {
         setSelected("");
+        setShowdropdown({ show: false, x: 0, y: 0 });
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -73,6 +87,9 @@ export default function Icons() {
           name={icon.name}
           selected={selected}
           setSelected={setSelected}
+          refr={icon.ref}
+          showdropdown={showdropdown}
+          setShowdropdown={setShowdropdown}
         />
       ))}
     </div>
@@ -83,15 +100,69 @@ function IconItem({
   name,
   selected,
   setSelected,
+  refr,
+  setShowdropdown,
+  showdropdown,
 }: {
   image: string;
   name: string;
   selected: string;
   setSelected: (selected: string) => void;
+  refr: React.RefObject<HTMLDivElement>;
+  showdropdown: {
+    show: boolean;
+    x: number;
+    y: number;
+  };
+  setShowdropdown: (showdropdown: {
+    show: boolean;
+    x: number;
+    y: number;
+  }) => void;
 }) {
+  useEffect(() => {
+    if (refr.current) {
+      refr.current.addEventListener("contextmenu", (event) => {
+        // check if target class start with rightclickdropdown than return
+        if (
+          (event.target as HTMLElement).className.startsWith(
+            "rightclickdropdown"
+          )
+        ) {
+          event.preventDefault();
+          // trigger a click event on target
+          (event.target as HTMLElement).click();
+          return;
+        }
+
+        event.preventDefault();
+        // get the mouse position and set the dropdown to that position based on the .icon element position
+
+        let x = event.clientX;
+        let y = event.clientY;
+
+        const rect = refr.current?.getBoundingClientRect();
+        const left = rect?.left;
+        const top = rect?.top;
+        if (left && top) {
+          x = x - left - 5;
+          y = y - top + 220;
+        }
+
+        setShowdropdown({
+          show: true,
+          x,
+          y,
+        });
+        setSelected(name);
+      });
+    }
+  }, [refr]);
+
   return (
     <div
       className="icon"
+      ref={refr}
       onClick={() => {
         setSelected(name);
       }}
@@ -110,6 +181,37 @@ function IconItem({
       >
         {name}
       </div>
+      {showdropdown.show && selected === name && (
+        <RightClickDropDown top={showdropdown.y} left={showdropdown.x}>
+          <RightClickDropDownItem onClick={() => alert("Open")}>
+            Open
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Explore")}>
+            Explore
+          </RightClickDropDownItem>
+
+          <RightClickDropDownSeparator />
+          <RightClickDropDownItem onClick={() => alert("Short")}>
+            Create Shortcut
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Rename")}>
+            Rename
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Cut")}>
+            Cut
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Copy")}>
+            Copy
+          </RightClickDropDownItem>
+          <RightClickDropDownItem onClick={() => alert("Delete")}>
+            Delete
+          </RightClickDropDownItem>
+          <RightClickDropDownSeparator />
+          <RightClickDropDownItem onClick={() => alert("Delete")}>
+            Properties
+          </RightClickDropDownItem>
+        </RightClickDropDown>
+      )}
     </div>
   );
 }
