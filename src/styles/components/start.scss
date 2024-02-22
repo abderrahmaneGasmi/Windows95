@@ -11,10 +11,9 @@
     display: flex;
     align-items: center;
     padding: 0.2rem;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #000000;
-    border-right: 2px solid #000000;
-    border-left: 2px solid #fff;
+    box-shadow: inset -1.5px -1.5px 0 0 #263238, inset 1.5px 1.5px 0 0 #fcfcfc,
+      inset -3px -3px 0 0 #a099a1, inset 3px 3px 0 0 #cac6cb;
+    padding-right: 0.6rem;
     gap: 0.4rem;
     cursor: pointer;
     &__logo {
@@ -33,17 +32,15 @@
   &__tabs {
     display: flex;
     flex-grow: 2;
-    padding: 0.2rem 0;
-    gap: 0.5rem;
+    gap: 0.2rem;
     text-align: left;
     &__tab {
       font-size: 1.5rem;
       font-weight: 600;
-      border-top: 2px solid #1c1c1c;
-      border-left: 2px solid #1c1c1c;
-      border-right: 2px solid #fff;
-      border-bottom: 2px solid #fff;
-      padding: 0.3rem 0.2rem;
+      box-shadow: inset -1.5px -1.5px 0 0 #263238, inset 1.5px 1.5px 0 0 #fcfcfc,
+        inset -3px -3px 0 0 #a099a1, inset 3px 3px 0 0 #cac6cb;
+
+      padding: 0.4rem;
       background-color: #eee;
       min-width: 13rem;
       cursor: pointer;
@@ -55,13 +52,133 @@
   &__time {
     display: flex;
     align-items: center;
-    padding: 0.2rem;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #000000;
-    border-right: 2px solid #fff;
-    border-left: 2px solid #000000;
+    position: relative;
+    &__sound {
+      $size: 2rem;
+      width: $size;
+      height: $size;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    padding: 0 0.5rem;
+    box-shadow: inset -1.5px -1.5px 0 0 #263238, inset 1.5px 1.5px 0 0 #fcfcfc,
+      inset -3px -3px 0 0 #a099a1, inset 3px 3px 0 0 #cac6cb;
     gap: 0.4rem;
     font-size: 1.5rem;
     font-weight: 600;
+    &__popup {
+      flex-direction: column;
+      position: absolute;
+      bottom: 120%;
+      left: 0;
+      background-color: #ccc;
+
+      box-shadow: inset -1.5px -1.5px 0 0 #263238, inset 1.5px 1.5px 0 0 #fcfcfc,
+        inset -3px -3px 0 0 #a099a1, inset 3px 3px 0 0 #cac6cb;
+      padding: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      &__title {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      &__slider {
+        input {
+          // width: 100%;
+          appearance: slider-vertical;
+          // height: 4rem;
+          // padding: 5px 0;
+        }
+      }
+    }
   }
+}
+input[type="range"] {
+  height: 6rem;
+  -webkit-appearance: slider-vertical;
+  appearance: slider-vertical;
+  width: 1px;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  // width: 100%;
+  // height: 16px;
+  // cursor: pointer;
+  // animate: 0.2s;
+  // box-shadow: 0px 0px 0px #000000;
+  // background: #b6b6b6;
+  // border-radius: 25px;
+  // border: 1px solid #8a8a8a;
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background-color: black;
+  border-radius: 50%;
+  cursor: pointer;
+}
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: transparent;
+}
+input[type="range"]::-moz-range-track {
+  // width: 100%;
+  // height: 8rem;
+  // cursor: pointer;
+  // animate: 0.2s;
+  // box-shadow: 0px 0px 0px #000000;
+  background: #ff0000;
+  // border-radius: 25px;
+  // border: 1px solid #8a8a8a;
+}
+input[type="range"]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #828282;
+  border: 1px solid #8a8a8a;
+  height: 8rem;
+  width: 35px;
+  border-radius: 6px;
+  background: #4400ff;
+  cursor: pointer;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 8rem;
+  cursor: pointer;
+  animate: 0.2s;
+  background: yellow;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  // background: #b6b6b6;
+  // border: 1px solid #8a8a8a;
+  // border-radius: 50px;
+  // box-shadow: 0px 0px 0px #000000;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #b6b6b6;
+  border: 1px solid #00ff22;
+  border-radius: 50px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type="range"]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 1px #828282;
+  border: 1px solid #8a8a8a;
+  height: 8rem;
+  width: 35px;
+  border-radius: 6px;
+  background: #570000;
+  cursor: pointer;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: #ff0000;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: #b6b6b6;
 }

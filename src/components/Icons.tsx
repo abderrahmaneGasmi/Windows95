@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../styles/components/icons.scss";
 const icons = [
   {
+    image: "/folder.png",
+    name: "Documents",
+  },
+  {
     image: "/pc.png",
     name: "This PC",
   },
@@ -9,6 +13,11 @@ const icons = [
     image: "/networks.png",
     name: "Networks",
   },
+  {
+    image: "/recycle.png",
+    name: "Recycle Bin",
+  },
+
   {
     image: "/wrong.png",
     name: "program.exe",
