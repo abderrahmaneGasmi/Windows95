@@ -126,6 +126,14 @@ export default function Startbar() {
                 Windows update
               </div>
             </div>
+            <div className="startbar__popup__right__item">
+              <div className="startbar__popup__right__item__image">
+                <img src="/explorer.png" alt="update" />
+              </div>
+              <div className="startbar__popup__right__item__text">
+                Internet Explorer
+              </div>
+            </div>
             <div className="startbar__popup__right__separator"></div>
             <div className="startbar__popup__right__item">
               <div className="startbar__popup__right__item__image">
@@ -134,6 +142,48 @@ export default function Startbar() {
               <div className="startbar__popup__right__item__text">Programs</div>
               <div style={{ flexGrow: 2 }}></div>
               <div className="startbar__popup__right__item__expend">▸</div>
+              <div className="startbar__popup__right__item__extra">
+                <div className="startbar__popup__right__item__extra__item disabled">
+                  <div className="startbar__popup__right__item__extra__item__image">
+                    <img src="/word.ico" alt="update" />
+                  </div>
+                  <div className="startbar__popup__right__item__extra__item__text">
+                    Microsoft Word
+                  </div>
+                </div>
+                <div className="startbar__popup__right__item__extra__item">
+                  <div className="startbar__popup__right__item__extra__item__image">
+                    <img src="/notepad.ico" alt="update" />
+                  </div>
+                  <div className="startbar__popup__right__item__extra__item__text">
+                    Notepad
+                  </div>
+                </div>
+                <div className="startbar__popup__right__item__extra__item disabled">
+                  <div className="startbar__popup__right__item__extra__item__image">
+                    <img src="/defragment.png" alt="update" />
+                  </div>
+                  <div className="startbar__popup__right__item__extra__item__text">
+                    Disk Defragmenter
+                  </div>
+                </div>
+                <div className="startbar__popup__right__item__extra__item disabled">
+                  <div className="startbar__popup__right__item__extra__item__image">
+                    <img src="/solitaire.png" alt="update" />
+                  </div>
+                  <div className="startbar__popup__right__item__extra__item__text">
+                    Solitaire
+                  </div>
+                </div>
+                <div className="startbar__popup__right__item__extra__item disabled">
+                  <div className="startbar__popup__right__item__extra__item__image">
+                    <img src="/mines.png" alt="update" />
+                  </div>
+                  <div className="startbar__popup__right__item__extra__item__text">
+                    Minesweeper
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="startbar__popup__right__item disabled">
               <div className="startbar__popup__right__item__image">
