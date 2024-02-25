@@ -104,6 +104,7 @@
     background-color: #ccc;
     display: flex;
     height: 42rem;
+    z-index: 20;
     &__left {
       background: linear-gradient(#00045f, #010079, blue);
       width: 2.6rem;
