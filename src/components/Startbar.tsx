@@ -7,12 +7,9 @@ import RightClickDropDown, {
 } from "../assets/RightClickDropDown";
 import { useNotPad } from "../hooks/useNotePad";
 import { NotepadContextType } from "../context/Notepad";
+import { TabsContextType } from "../context/Tabs";
+import { useTabs } from "../hooks/useTabs";
 export default function Startbar() {
-  const [tabs, setTabs] = useState<Array<string>>([
-    "File Explorer",
-    "Microsoft Edge",
-    "Windows Media Player",
-  ]);
   const [time, settime] = useState(
     new Date().toLocaleTimeString().split(" ")[0]
   );
@@ -23,7 +20,8 @@ export default function Startbar() {
     x: 0,
     y: 0,
   });
-  const { toggleNotepad }: NotepadContextType = useNotPad();
+  const { toggleNotepad, shownotepad }: NotepadContextType = useNotPad();
+  const { tabs, addtabs }: TabsContextType = useTabs();
 
   const startbarref = React.createRef<HTMLDivElement>();
   useEffect(() => {
@@ -124,6 +122,11 @@ export default function Startbar() {
       clearInterval(interval);
     };
   }, []);
+  const opentabagain = (tab: string) => {
+    if (tab === "Notepad - Untitled") {
+      toggleNotepad(!shownotepad);
+    }
+  };
   return (
     <div className="startbar" ref={startbarref}>
       <div
@@ -143,7 +146,13 @@ export default function Startbar() {
       </div>
       <div className="startbar__tabs">
         {tabs.map((tab, index) => (
-          <div key={index} className="startbar__tabs__tab">
+          <div
+            key={index}
+            className="startbar__tabs__tab"
+            onClick={() => {
+              opentabagain(tab);
+            }}
+          >
             {tab}
           </div>
         ))}
@@ -231,6 +240,7 @@ export default function Startbar() {
                   className="startbar__popup__right__item__extra__item"
                   onClick={() => {
                     toggleNotepad(true);
+                    addtabs("Notepad - Untitled");
                     setShowStartPopup(false);
                   }}
                 >

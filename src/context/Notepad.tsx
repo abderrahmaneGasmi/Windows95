@@ -4,6 +4,8 @@ import RightClickDropDown, {
   RightClickDropDownSeparator,
   RightClickDropDownItem,
 } from "../assets/RightClickDropDown";
+import { TabsContextType } from "./Tabs";
+import { useTabs } from "../hooks/useTabs";
 interface childrenType {
   children: React.ReactNode;
 }
@@ -16,6 +18,8 @@ export const NotepadContext = React.createContext<NotepadContextType>(null!);
 export default function NotepadProvider({ children }: childrenType) {
   const [shownotepad, setShownotepad] = useState(false);
   const [classanim, setClassanim] = useState("bounce-in-up");
+  const { removetabs }: TabsContextType = useTabs();
+
   const toggleNotepad = (value: boolean) => {
     if (classanim === "maximize" || classanim === "minimize") {
       return;
@@ -149,6 +153,7 @@ export default function NotepadProvider({ children }: childrenType) {
                 className="notepad__header__right__icon"
                 onClick={() => {
                   toggleNotepad(false);
+                  removetabs("Notepad - Untitled");
                 }}
               >
                 <img src="/close.png" alt="close" />
