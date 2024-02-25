@@ -5,6 +5,8 @@ import RightClickDropDown, {
   RightClickDropDownItem,
   RightClickDropDownSeparator,
 } from "../assets/RightClickDropDown";
+import { useNotPad } from "../hooks/useNotePad";
+import { NotepadContextType } from "../context/Notepad";
 export default function Startbar() {
   const [tabs, setTabs] = useState<Array<string>>([
     "File Explorer",
@@ -21,6 +23,7 @@ export default function Startbar() {
     x: 0,
     y: 0,
   });
+  const { toggleNotepad }: NotepadContextType = useNotPad();
 
   const startbarref = React.createRef<HTMLDivElement>();
   useEffect(() => {
@@ -220,7 +223,13 @@ export default function Startbar() {
                     Microsoft Word
                   </div>
                 </div>
-                <div className="startbar__popup__right__item__extra__item">
+                <div
+                  className="startbar__popup__right__item__extra__item"
+                  onClick={() => {
+                    toggleNotepad(true);
+                    setShowStartPopup(false);
+                  }}
+                >
                   <div className="startbar__popup__right__item__extra__item__image">
                     <img src="/notepad.ico" alt="update" />
                   </div>
