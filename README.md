@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# Windows 95
+this is on going attempts to recreate the old windows 95 using react js and sass  
+# Screenshots
+<div style="display:flex">
+        <img width="47%" height="250px" style="margin-right:10px;" src="https://github.com/abderrahmaneGasmi/Windows95/assets/119729705/b64b73bf-ded6-4bad-8375-f1fc6ba07092"/>
+       <img width="47%" height="250px" src="https://github.com/abderrahmaneGasmi/Windows95/assets/119729705/cddb3a75-b00d-44af-8e2f-5fe4aedb9e3e"/>
+        <img width="47%" height="250px" style="margin-right:10px;" src="https://github.com/abderrahmaneGasmi/Windows95/assets/119729705/a40150f8-a08c-4a87-a3b3-ea37cae7698f"/>
+       <img width="47%" height="250px" src="https://github.com/abderrahmaneGasmi/Windows95/assets/119729705/5b7401da-38fc-499a-8af0-3cd85112a7dd"/>
+        <img width="47%" height="250px" style="margin-right:10px;" src="https://github.com/abderrahmaneGasmi/Windows95/assets/119729705/fa4451a0-5f34-4237-83b5-bfd63db36803"/>
+       <img width="47%" height="250px" src="https://github.com/abderrahmaneGasmi/Windows95/assets/119729705/bac30222-fb60-48de-818c-f676902e56cf"/>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+</div>
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 💻 Running the project
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+to run this project 
+Clone this repository :
+```
+git clone [https://github.com/abderrahmaneGasmi/Windows95]
+```
+```
+cd Windows95
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Install packages :
+```
+npm i
+```
+When installation is complete, run command :
+```
+npm run dev
