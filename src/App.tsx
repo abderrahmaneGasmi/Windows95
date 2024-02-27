@@ -46,14 +46,20 @@ function App() {
         y: event.clientY - 473,
       });
     };
-    const handleclickoutside = (e: MouseEvent) => {
+    const windowrightclickhandle = (event: MouseEvent) => {
+      // check if target class start with rightclickdropdown than return
+      event.preventDefault();
+    };
+    const handleclickoutside = () => {
       setShowDropDownRightClick({ show: false, x: 0, y: 0 });
     };
 
     if (container) container.addEventListener("contextmenu", rightclickhandle);
     window.addEventListener("click", handleclickoutside);
+    window.addEventListener("contextmenu", windowrightclickhandle);
     return () => {
       window.removeEventListener("click", handleclickoutside);
+      window.removeEventListener("contextmenu", windowrightclickhandle);
       if (container)
         container.removeEventListener("contextmenu", rightclickhandle);
     };

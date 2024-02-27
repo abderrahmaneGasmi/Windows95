@@ -10,6 +10,8 @@ import { useTabs } from "../hooks/useTabs";
 import { TabsContextType } from "../context/Tabs";
 import { ErrorPopupContextType } from "../context/errorPopup";
 import { useErrorPopup } from "../hooks/useError";
+import { MyComputerContextType } from "../context/myComputer";
+import { useMyComputer } from "../hooks/useMyComputer";
 const icons = [
   {
     image: "/folder.png",
@@ -133,6 +135,8 @@ function IconItem({
   }) => void;
 }) {
   const { toggleNotepad }: NotepadContextType = useNotPad();
+  const { toggleshow }: MyComputerContextType = useMyComputer();
+
   const { tabs, addtabs }: TabsContextType = useTabs();
   const { showError }: ErrorPopupContextType = useErrorPopup();
 
@@ -178,6 +182,9 @@ function IconItem({
     if (name === "Notepad") {
       toggleNotepad(true);
       addtabs("Notepad - Untitled");
+    } else if (name == "This PC") {
+      toggleshow(true);
+      addtabs("My Computer - C:/");
     } else {
       showError(`${name} has stopped working`, name);
       addtabs(name);

@@ -9,6 +9,7 @@
   gap: 0.5rem;
   position: relative;
   min-height: 2.7rem;
+  z-index: 50;
   &__start {
     display: flex;
     align-items: center;
