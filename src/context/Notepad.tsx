@@ -6,6 +6,7 @@ import RightClickDropDown, {
 } from "../assets/RightClickDropDown";
 import { TabsContextType } from "./Tabs";
 import { useTabs } from "../hooks/useTabs";
+import { motion } from "framer-motion";
 interface childrenType {
   children: React.ReactNode;
 }
@@ -17,25 +18,20 @@ export interface NotepadContextType {
 export const NotepadContext = React.createContext<NotepadContextType>(null!);
 export default function NotepadProvider({ children }: childrenType) {
   const [shownotepad, setShownotepad] = useState(false);
-  const [classanim, setClassanim] = useState("bounce-in-up");
+  const [containerstyles, setContainerstyles] = useState({
+    width: "70rem",
+    height: "40rem",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    right: "auto",
+    bottom: "auto",
+    state: "small" as "small" | "maximised",
+  });
   const { removetabs }: TabsContextType = useTabs();
 
   const toggleNotepad = (value: boolean) => {
-    if (classanim === "maximize" || classanim === "minimize") {
-      return;
-    }
-
-    if (value) {
-      setClassanim("bounce-in-up");
-      setShownotepad(value);
-    } else {
-      if (classanim === "maximizestyles")
-        setClassanim("bounce-out-down-maximize");
-      else setClassanim("bounce-out-down");
-      setTimeout(() => {
-        setShownotepad(value);
-      }, 700);
-    }
+    setShownotepad(value);
   };
   const [showdropdown, setShowdropdown] = useState({
     show: false,
@@ -43,19 +39,28 @@ export default function NotepadProvider({ children }: childrenType) {
     y: 0,
   });
   const maximizeNotepad = () => {
-    if (classanim === "maximize") {
-      return;
-    }
-    if (classanim !== "maximizestyles") {
-      setClassanim("maximize");
-      setTimeout(() => {
-        setClassanim("maximizestyles");
-      }, 650);
+    if (containerstyles.state === "small") {
+      setContainerstyles({
+        width: "100%",
+        height: "100%",
+        top: "0",
+        left: "0",
+        transform: "translate(0%, 0%)",
+        right: "auto",
+        bottom: "auto",
+        state: "maximised",
+      });
     } else {
-      setClassanim("minimize");
-      setTimeout(() => {
-        setClassanim("");
-      }, 650);
+      setContainerstyles({
+        width: "70rem",
+        height: "40rem",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        right: "auto",
+        bottom: "auto",
+        state: "small",
+      });
     }
   };
   const refr = React.createRef<HTMLDivElement>();
@@ -122,7 +127,21 @@ export default function NotepadProvider({ children }: childrenType) {
       }}
     >
       {shownotepad && (
-        <div className={`notepad ${classanim}`}>
+        <motion.div
+          className={`notepad`}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            width: containerstyles.width,
+            height: containerstyles.height,
+            top: containerstyles.top,
+            left: containerstyles.left,
+            transform: containerstyles.transform,
+            right: containerstyles.right,
+            bottom: containerstyles.bottom,
+          }}
+          transition={{ duration: 0.3 }}
+        >
           <div className="notepad__header">
             <div className="notepad__header__left">
               <div className="notepad__header__left__icon">
@@ -147,7 +166,14 @@ export default function NotepadProvider({ children }: childrenType) {
                   maximizeNotepad();
                 }}
               >
-                <img src="/maximise.png" alt="maximize" />
+                <img
+                  src={
+                    containerstyles.state !== "small"
+                      ? "/minimize.gif"
+                      : "/maximise.png"
+                  }
+                  alt="maximize"
+                />
               </div>
               <div
                 className="notepad__header__right__icon"
@@ -247,59 +273,40 @@ export default function NotepadProvider({ children }: childrenType) {
               </div>
             </div>
           </div>
-          <div
-            ref={refr}
-            className="notepad__body"
-            style={
-              classanim === "maximizestyles" ||
-              classanim === "maximize" ||
-              classanim === "minimize" ||
-              classanim === "bounce-out-down-maximize"
-                ? { height: "100%" }
-                : {}
-            }
-          >
-            <textarea
-              className="notepad__body__textarea"
-              cols={90}
-              rows={30}
-              style={
-                classanim === "maximizestyles" ||
-                classanim === "maximize" ||
-                classanim === "minimize" ||
-                classanim === "bounce-out-down-maximize"
-                  ? { width: "100%", height: "100%", resize: "none" }
-                  : {}
-              }
-            ></textarea>
-            {showdropdown.show && (
-              <RightClickDropDown
-                direction="top"
-                top={showdropdown.y}
-                left={showdropdown.x}
-              >
-                <RightClickDropDownItem onClick={() => alert("Undo")}>
-                  Undo
-                </RightClickDropDownItem>
+          <textarea
+            className="notepad__body__textarea"
+            style={{
+              resize: "none",
+              height: "100%",
+            }}
+          ></textarea>
+          {showdropdown.show && (
+            <RightClickDropDown
+              direction="top"
+              top={showdropdown.y}
+              left={showdropdown.x}
+            >
+              <RightClickDropDownItem onClick={() => alert("Undo")}>
+                Undo
+              </RightClickDropDownItem>
 
-                <RightClickDropDownSeparator />
-                <RightClickDropDownItem onClick={() => alert("Cut")}>
-                  Cut
-                </RightClickDropDownItem>
-                <RightClickDropDownItem onClick={() => alert("Copy")}>
-                  Copy
-                </RightClickDropDownItem>
-                <RightClickDropDownItem onClick={() => alert("Select All")}>
-                  Select All
-                </RightClickDropDownItem>
-                <RightClickDropDownSeparator />
-                <RightClickDropDownItem onClick={() => alert("Delete")}>
-                  Properties
-                </RightClickDropDownItem>
-              </RightClickDropDown>
-            )}
-          </div>
-        </div>
+              <RightClickDropDownSeparator />
+              <RightClickDropDownItem onClick={() => alert("Cut")}>
+                Cut
+              </RightClickDropDownItem>
+              <RightClickDropDownItem onClick={() => alert("Copy")}>
+                Copy
+              </RightClickDropDownItem>
+              <RightClickDropDownItem onClick={() => alert("Select All")}>
+                Select All
+              </RightClickDropDownItem>
+              <RightClickDropDownSeparator />
+              <RightClickDropDownItem onClick={() => alert("Delete")}>
+                Properties
+              </RightClickDropDownItem>
+            </RightClickDropDown>
+          )}
+        </motion.div>
       )}
 
       {children}

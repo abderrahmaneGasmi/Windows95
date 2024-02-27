@@ -39,6 +39,11 @@ const icons = [
     ref: React.createRef<HTMLDivElement>(),
   },
   {
+    image: "/solitaire.png",
+    name: "Solitaire",
+    ref: React.createRef<HTMLDivElement>(),
+  },
+  {
     image: "/wrong.png",
     name: "program.exe",
     ref: React.createRef<HTMLDivElement>(),

@@ -231,7 +231,7 @@ export default function MyComputerProvider({ children }: childrenType) {
               onClick={() => {
                 showError(
                   "THIS FEATURE IS NOT AVAILABLE IN THIS VERSION OF MY COMPUTER.",
-                  "MISSING FEATURE"
+                  "Missing Feature"
                 );
                 addtabs("Missing Feature");
               }}
@@ -246,7 +246,7 @@ export default function MyComputerProvider({ children }: childrenType) {
               onClick={() => {
                 showError(
                   "THIS FEATURE IS NOT AVAILABLE IN THIS VERSION OF MY COMPUTER.",
-                  "MISSING FEATURE"
+                  "Missing Feature"
                 );
                 addtabs("Missing Feature");
               }}
@@ -261,7 +261,7 @@ export default function MyComputerProvider({ children }: childrenType) {
               onClick={() => {
                 showError(
                   "THIS FEATURE IS NOT AVAILABLE IN THIS VERSION OF MY COMPUTER.",
-                  "MISSING FEATURE"
+                  "Missing Feature"
                 );
                 addtabs("Missing Feature");
               }}
@@ -276,7 +276,7 @@ export default function MyComputerProvider({ children }: childrenType) {
               onClick={() => {
                 showError(
                   "THIS FEATURE IS NOT AVAILABLE IN THIS VERSION OF MY COMPUTER.",
-                  "MISSING FEATURE"
+                  "Missing Feature"
                 );
                 addtabs("Missing Feature");
               }}
@@ -291,7 +291,7 @@ export default function MyComputerProvider({ children }: childrenType) {
               onClick={() => {
                 showError(
                   "THIS FEATURE IS NOT AVAILABLE IN THIS VERSION OF MY COMPUTER.",
-                  "MISSING FEATURE"
+                  "Missing Feature"
                 );
                 addtabs("Missing Feature");
               }}

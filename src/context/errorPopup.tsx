@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../styles/context/errorpopup.scss";
 import { TabsContextType } from "./Tabs";
 import { useTabs } from "../hooks/useTabs";
