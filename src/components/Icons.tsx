@@ -4,6 +4,12 @@ import RightClickDropDown, {
   RightClickDropDownItem,
   RightClickDropDownSeparator,
 } from "../assets/RightClickDropDown";
+import { NotepadContextType } from "../context/Notepad";
+import { useNotPad } from "../hooks/useNotePad";
+import { useTabs } from "../hooks/useTabs";
+import { TabsContextType } from "../context/Tabs";
+import { ErrorPopupContextType } from "../context/errorPopup";
+import { useErrorPopup } from "../hooks/useError";
 const icons = [
   {
     image: "/folder.png",
@@ -25,7 +31,11 @@ const icons = [
     name: "Recycle Bin",
     ref: React.createRef<HTMLDivElement>(),
   },
-
+  {
+    image: "/notepad.ico",
+    name: "Notepad",
+    ref: React.createRef<HTMLDivElement>(),
+  },
   {
     image: "/wrong.png",
     name: "program.exe",
@@ -122,6 +132,10 @@ function IconItem({
     y: number;
   }) => void;
 }) {
+  const { toggleNotepad }: NotepadContextType = useNotPad();
+  const { tabs, addtabs }: TabsContextType = useTabs();
+  const { showError }: ErrorPopupContextType = useErrorPopup();
+
   useEffect(() => {
     if (refr.current) {
       refr.current.addEventListener("contextmenu", (event) => {
@@ -160,7 +174,15 @@ function IconItem({
       });
     }
   }, [refr]);
-
+  const openicon = () => {
+    if (name === "Notepad") {
+      toggleNotepad(true);
+      addtabs("Notepad - Untitled");
+    } else {
+      showError(`${name} has stopped working`, name);
+      addtabs(name);
+    }
+  };
   return (
     <div
       className="icon clickablelink"
@@ -170,6 +192,7 @@ function IconItem({
       }}
       onDoubleClick={() => {
         setSelected("");
+        openicon();
       }}
     >
       <div className="icon__logo">
@@ -185,31 +208,52 @@ function IconItem({
       </div>
       {showdropdown.show && selected === name && (
         <RightClickDropDown top={showdropdown.y} left={showdropdown.x}>
-          <RightClickDropDownItem onClick={() => alert("Open")}>
+          <RightClickDropDownItem
+            onClick={() => {
+              openicon();
+              setSelected("");
+              document.body.click();
+            }}
+          >
             Open
           </RightClickDropDownItem>
-          <RightClickDropDownItem onClick={() => alert("Explore")}>
+          <RightClickDropDownItem
+            onClick={() => alert("Explore")}
+            disabled={true}
+          >
             Explore
           </RightClickDropDownItem>
 
           <RightClickDropDownSeparator />
-          <RightClickDropDownItem onClick={() => alert("Short")}>
+          <RightClickDropDownItem
+            onClick={() => alert("Short")}
+            disabled={true}
+          >
             Create Shortcut
           </RightClickDropDownItem>
-          <RightClickDropDownItem onClick={() => alert("Rename")}>
+          <RightClickDropDownItem
+            onClick={() => alert("Rename")}
+            disabled={true}
+          >
             Rename
           </RightClickDropDownItem>
-          <RightClickDropDownItem onClick={() => alert("Cut")}>
+          <RightClickDropDownItem onClick={() => alert("Cut")} disabled={true}>
             Cut
           </RightClickDropDownItem>
-          <RightClickDropDownItem onClick={() => alert("Copy")}>
+          <RightClickDropDownItem onClick={() => alert("Copy")} disabled={true}>
             Copy
           </RightClickDropDownItem>
-          <RightClickDropDownItem onClick={() => alert("Delete")}>
+          <RightClickDropDownItem
+            onClick={() => alert("Delete")}
+            disabled={true}
+          >
             Delete
           </RightClickDropDownItem>
           <RightClickDropDownSeparator />
-          <RightClickDropDownItem onClick={() => alert("Delete")}>
+          <RightClickDropDownItem
+            onClick={() => alert("Delete")}
+            disabled={true}
+          >
             Properties
           </RightClickDropDownItem>
         </RightClickDropDown>

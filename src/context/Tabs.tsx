@@ -11,6 +11,8 @@ export interface TabsContextType {
 export const TabsContext = React.createContext<TabsContextType>(null!);
 export default function TabsProvider({ children }: childrenType) {
   const addtabs = (tab: string) => {
+    if (tabs.includes(tab)) return;
+
     setTabs([...tabs, tab]);
   };
   const removetabs = (tab: string) => {

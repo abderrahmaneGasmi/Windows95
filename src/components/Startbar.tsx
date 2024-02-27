@@ -9,6 +9,8 @@ import { useNotPad } from "../hooks/useNotePad";
 import { NotepadContextType } from "../context/Notepad";
 import { TabsContextType } from "../context/Tabs";
 import { useTabs } from "../hooks/useTabs";
+import { useErrorPopup } from "../hooks/useError";
+import { ErrorPopupContextType } from "../context/errorPopup";
 export default function Startbar() {
   const [time, settime] = useState(
     new Date().toLocaleTimeString().split(" ")[0]
@@ -21,6 +23,8 @@ export default function Startbar() {
     y: 0,
   });
   const { toggleNotepad, shownotepad }: NotepadContextType = useNotPad();
+  const { showError }: ErrorPopupContextType = useErrorPopup();
+
   const { tabs, addtabs }: TabsContextType = useTabs();
 
   const startbarref = React.createRef<HTMLDivElement>();
@@ -211,7 +215,17 @@ export default function Startbar() {
                 Windows update
               </div>
             </div>
-            <div className="startbar__popup__right__item">
+            <div
+              className="startbar__popup__right__item"
+              onClick={() => {
+                showError(
+                  "Internet Explorer has stopped working",
+                  "Internet Explorer"
+                );
+                setShowStartPopup(false);
+                addtabs("Internet Explorer");
+              }}
+            >
               <div className="startbar__popup__right__item__image">
                 <img src="/explorer.png" alt="update" />
               </div>
